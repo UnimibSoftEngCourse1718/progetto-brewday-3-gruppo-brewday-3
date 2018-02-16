@@ -1,6 +1,7 @@
 package group3.brewday.models;
 
 import javax.persistence.*;
+
 import java.util.Collection;
 
 @Entity
