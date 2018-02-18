@@ -1,5 +1,6 @@
 package group3.brewday.controllers;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -30,6 +31,8 @@ public class IndexController {
     public String userIndex() {
         return "user/index";
     }
+
+
 }
 
     

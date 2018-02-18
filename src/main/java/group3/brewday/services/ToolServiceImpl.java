@@ -1,5 +1,7 @@
 package group3.brewday.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,12 +18,12 @@ public class ToolServiceImpl implements ToolService {
     }
 
     @Override
-    public Iterable<Tool> listAllProducts() {
+    public List<Tool> listAllTools() {
         return toolRepository.findAll();
     }
 
     @Override
-    public Tool getToolById(Integer id) {
+    public Tool getToolById(Long id) {
         return toolRepository.findOne(id);
     }
 
@@ -31,7 +33,7 @@ public class ToolServiceImpl implements ToolService {
     }
     
     @Override
-    public void deleteTool(Integer id) {
+    public void deleteTool(Long id) {
          toolRepository.delete(id);
          return;
     }

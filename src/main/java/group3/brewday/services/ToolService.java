@@ -1,15 +1,18 @@
 package group3.brewday.services;
 
+import java.util.List;
+
 import group3.brewday.models.Tool;
 
 public interface ToolService {
-    Iterable<Tool> listAllProducts();
+	
+    List<Tool> listAllTools();
 
-    Tool getToolById(Integer id);
+    Tool getToolById(Long id);
 
     Tool saveTool(Tool tool); 
     
-    void deleteTool(Integer id);
+    void deleteTool(Long id);
     
     
 }

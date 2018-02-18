@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-<meta charset="utf-8" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+<head lang="en">
 
-<title>Registration</title>
+<title>Home</title>
+
+ <!--/*/ <th:block th:include="fragments/headerinc :: head"></th:block> /*/-->
 </head>
 <body>
 	<div class="container">
-		<h1>Welcome</h1><p th:text='${username}'></p>
+		<!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
 	</div>
-	<div class="form-group">
-		<span><a href="/" th:href="@{/logout}">LogOut</a></span>
+	<div class="container">
+		<h1>Welcome</h1>
+		<p th:text='${username}'></p>
 	</div>
 
 </body>
