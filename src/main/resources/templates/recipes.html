@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+
+<title>Tools List</title>
+
+<th:block th:include="fragments/headerinc :: head"></th:block>
+</head>
+<body>
+	<div class="container">
+		<th:block th:include="fragments/header :: header"></th:block>
+		<div class="container">
+			<div th:fragment="header">
+				<nav class="navbar navbar-default">
+					<div class="container-fluid">
+						<div class="navbar-header">
+							<ul class="nav navbar-nav">
+								<li><a href="#" th:href="@{/recipeform}">Create Recipe</a></li>
+							</ul>
+
+						</div>
+					</div>
+				</nav>
+
+			</div>
+		</div>
+		<div th:if="${not #lists.isEmpty(recipes)}">
+			<h2>Recipes List</h2>
+			<table class="table table-striped">
+				<tr>
+					<th>Recipe name</th>
+					<th>Yield</th>
+					<th></th>
+					<th></th>
+				</tr>
+				<tr th:each="recipe : ${recipes}">
+					<td th:text="${recipe.name}">Recipe Name</td>
+					<td th:text="${recipe.yield}">Yield</td>
+					<td><a th:href="${'/recipe/edit/' + recipe.id}">Edit</a></td>
+					<td><form th:action="@{/recipe/delete/{id}(id=${recipe.id})}"
+							th:method="delete">
+							<input type="submit" value="Delete" />
+						</form></td>
+				</tr>
+			</table>
+
+		</div>
+	</div>
+
+</body>
+</html>

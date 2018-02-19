@@ -33,9 +33,9 @@
 					<th>Quantity</th>
 				</tr>
 				<tr th:each="ingredient : ${ingredients}">
-					<td th:text="${ingredient.type}">Id</td>
-					<td th:text="${ingredient.name}">Id</td>
-					<td th:text="${ingredient.quantity}">Product Id</td>
+					<td th:text="${ingredient.type}">Type</td>
+					<td th:text="${ingredient.name}">Name</td>
+					<td th:text="${ingredient.quantity}">Quantity</td>
 					<td><a th:href="${'/ingredient/edit/' + ingredient.id}">Edit</a></td>
 					<td><form th:action="@{/ingredient/delete/{id}(id=${ingredient.id})}"
 							th:method="delete">
