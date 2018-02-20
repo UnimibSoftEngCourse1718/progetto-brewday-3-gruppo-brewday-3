@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+
+<title>Recipe show</title>
+
+<th:block th:include="fragments/headerinc :: head"></th:block>
+</head>
+<body>
+	<div class="container">
+		<th:block th:include="fragments/header :: header"></th:block>
+
+		<h2>Recipe Details</h2>
+		<div>
+			<form class="form-horizontal">
+				<div class="form-group">
+					<label class="col-sm-2 control-label">Name:</label>
+					<div class="col-sm-10">
+						<p class="form-control-static" th:text="${recipe.name}">Product
+							Id</p>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">Description:</label>
+					<div class="col-sm-10">
+						<p class="form-control-static" th:text="${recipe.description}">description</p>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">Price:</label>
+					<div class="col-sm-10">
+						<p class="form-control-static" th:text="${recipe.yield}">Yield</p>
+					</div>
+				</div>
+				<div class="form-group">
+					<table class="table table-striped">
+						<tr>
+							<th>Type</th>
+							<th>Ingredient Name</th>
+							<th>Quantity</th>
+						</tr>
+						<tr th:each="ingredient : ${recipe.ingredients}">
+							<td th:text="${ingredient.type}">Type</td>
+							<td th:text="${ingredient.name}">Name</td>
+							<td th:text="${ingredient.quantity}">Quantity</td>
+						</tr>
+					</table>
+				</div>
+			</form>
+		</div>
+	</div>
+
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+
+<title>Ingredients List</title>
+
+<!--/*/ <th:block th:include="fragments/headerinc :: head"></th:block> /*/-->
+</head>
+<body>
+	<div class="container">
+		<!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
+		<div class="container">
+			<div th:fragment="header"></div>
+			<div>
+				<nav class="navbar navbar-default">
+					<div class="container-fluid">
+						<div class="navbar-header">
+							<ul class="nav navbar-nav">
+								<li><a href="#" th:href="@{/addingform}">Create
+										Ingredient</a></li>
+							</ul>
+
+						</div>
+					</div>
+				</nav>
+
+			</div>
+		</div>
+		<div th:if="${not #lists.isEmpty(addingredients)}">
+			<h2>Ingredients List</h2>
+			<table class="table table-striped">
+				<tr>
+					<th>Type</th>
+					<th>Ingredient Name</th>
+					<th>Quantity</th>
+				</tr>
+				<tr th:each="addingredient : ${addingredients}">
+					<td th:text="${addingredient.type}">Type</td>
+					<td th:text="${addingredient.name}">Name</td>
+					<td th:text="${addingredient.quantity}">Quantity</td>
+					<td><a th:href="${'/ingredient/edit/' + addingredient.id}">Edit</a></td>
+					<td><form
+							th:action="@{/addingredient/delete/{id}(id=${addingredient.id})}"
+							th:method="delete">
+							<input type="submit" value="Delete" />
+						</form></td>
+				</tr>
+			</table>
+
+		</div>
+		<div>
+			<a href="#" th:href="@{/recipeform}">Adding Ingredients to Recipe</a>
+		</div>
+	</div>
+
+</body>
+</html>
