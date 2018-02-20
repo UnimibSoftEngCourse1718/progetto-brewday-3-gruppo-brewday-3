@@ -14,5 +14,4 @@ public interface RecipeService {
 
 	void deleteRecipe(Long id);
 
-
 }

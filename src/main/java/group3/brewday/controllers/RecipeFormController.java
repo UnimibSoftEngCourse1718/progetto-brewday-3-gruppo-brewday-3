@@ -1,3 +1,4 @@
+
 package group3.brewday.controllers;
 
 import java.util.List;
@@ -14,50 +15,77 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import group3.brewday.models.Ingredient;
 import group3.brewday.models.Recipe;
+import group3.brewday.services.IngredientService;
 import group3.brewday.services.RecipeService;
 
 @Controller
 public class RecipeFormController {
-   
+
 	@Autowired
 	RecipeService recipeService;
-	Ingredient[] ingredient = new Ingredient[10];
+	@Autowired
+	IngredientService ingredientService1;
+
+
+	@GetMapping(value = "/recipes")
+	public String list(Model model, Authentication auth){
+		List<Recipe> allRecipes = recipeService.listAllRecipes();
+		model.addAttribute("recipes", allRecipes.stream().filter(recipe -> auth.getName().equals(recipe.getEmailUser())).collect(Collectors.toList()));
+		return "recipes";
+	}
+
+	@GetMapping("/recipeinglist")
+	public String newRecipe(Model model, Authentication auth){
+		model.addAttribute("addingredients", ingredientService1.listAllIngredients());
+		return "recipeinglist";
+	}
+
+	@GetMapping("/addingform")
+	public String newIngredient(Model model, Authentication auth){
+		model.addAttribute("addingredient", new Ingredient());
+		model.addAttribute("username",auth.getName());
+		return "addingform";
+	}
+
+	@DeleteMapping("addingredient/delete/{id}")
+	public String delIngredient(@PathVariable Long id){
+		recipeService.deleteRecipe(id);;
+		return "redirect:/recipeinglist";
+	}
+
 	
-    @GetMapping("/ingredientform")
-    public String newIngredient(Model model, Authentication auth){
-        model.addAttribute("ingredient", new Recipe());
-        model.addAttribute("username",auth.getName());
-        return "ingredientform";
-    }
-	
+	@PostMapping(value = "addingredient")
+	public String addIngRecipe(Ingredient addingredient, Authentication auth){
+		addingredient.setEmailUser(auth.getName());
+		ingredientService1.saveIngredient(addingredient);			
+		return "redirect:/recipeinglist";
+	}	
+
+
+	@DeleteMapping("recipe/delete/{id}")
+	public String recipeIngredient(@PathVariable Long id){
+		recipeService.deleteRecipe(id);;
+		return "redirect:/recipes";
+	}
+
 	@PostMapping(value = "recipe")
-    public String saveRecipe(Recipe recipe, Authentication auth){
+	public String saveRecipe(Recipe recipe, Authentication auth){
 
 		recipe.setEmailUser(auth.getName());
-        recipeService.saveRecipe(recipe);
+		recipeService.saveRecipe(recipe);
 
-        return "redirect:/ingredients";
-    }
-	
-    @GetMapping(value = "/ingredients")
-    public String list(Model model, Authentication auth){
-    	List<Recipe> allRecipes = recipeService.listAllRecipes();
-        model.addAttribute("recipes", allRecipes.stream().filter(recipe -> auth.getName().equals(recipe.getEmailUser())).collect(Collectors.toList()));
-        return "recipes";
-    }	
-	
-    @GetMapping("ingredient/edit/{id}")
-    public String edit(@PathVariable Long id, Model model){
-        model.addAttribute("ingredient", recipeService.getRecipeById(id));
-        return "ingredientform";
-    }
-    
-    @DeleteMapping("ingredient/delete/{id}")
-    public String deleteIngredient(@PathVariable Long id){
-            recipeService.deleteRecipe(id);;
-            return "redirect:/ingredients";
-    }
-    
+		return "redirect:/recipes";
+	}
+
+	@GetMapping("/recipeform")
+	public String newRecipeIng(Model model, Authentication auth){
+		Ingredient[] ingredients = ingredientService1.listAllIngredients().toArray(new Ingredient[ingredientService1.listAllIngredients().size()]);
+		model.addAttribute("recipe", new Recipe(ingredients));
+		ingredientService1.deleteAll();
+		model.addAttribute("username",auth.getName());
+		return "recipeform";
+	}
+
+
+
 }
-
-    

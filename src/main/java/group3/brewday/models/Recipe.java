@@ -15,6 +15,7 @@ public class Recipe {
 	private String name;
 	private  Ingredient[] ingredients;
 	private Double yield;
+	private String description;
 	private String emailUser;
 	
 	public Long getId() {
@@ -49,6 +50,14 @@ public class Recipe {
 		this.yield = yield;
 	}
 	
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
 	public String getEmailUser() {
 		return emailUser;
 	}
@@ -70,6 +79,11 @@ public class Recipe {
 
 	public Recipe() {
 		super();
+	}
+
+	public Recipe(Ingredient[] ingredients) {
+		super();
+		this.ingredients = ingredients;
 	}
 	
 	

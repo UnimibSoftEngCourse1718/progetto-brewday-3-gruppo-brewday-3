@@ -40,4 +40,9 @@ public class IngredientServiceImpl implements IngredientService {
          return;
     }
     
+    @Override
+	public void deleteAll() {
+		ingredientRepository.deleteAll();
+	}
+    
 }

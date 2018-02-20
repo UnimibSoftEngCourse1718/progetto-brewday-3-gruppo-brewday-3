@@ -2,49 +2,52 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head lang="en">
 
-<title>Tools List</title>
+<title>Ingredients List</title>
 
 <!--/*/ <th:block th:include="fragments/headerinc :: head"></th:block> /*/-->
 </head>
 <body>
 	<div class="container">
 		<!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
+
+	</div>
+
+	<div>
 		<div class="container">
-			<div th:fragment="header">
-				<nav class="navbar navbar-default">
-					<div class="container-fluid">
-						<div class="navbar-header">
-							<ul class="nav navbar-nav">
-								<li><a href="#" th:href="@{/ingredientform}">Create Ingredient</a></li>
-							</ul>
-
-						</div>
+			<nav class="navbar navbar-default">
+				<div class="container-fluid">
+					<div class="navbar-header">
+						<ul class="nav navbar-nav">
+							<li><a href="#" th:href="@{/ingredientform}">Create
+									Ingredient</a></li>
+						</ul>
 					</div>
-				</nav>
-
-			</div>
-		</div>
-		<div th:if="${not #lists.isEmpty(ingredients)}">
-			<h2>Ingredients List</h2>
-			<table class="table table-striped">
-				<tr>
-					<th>Type</th>
-					<th>Ingredient Name</th>
-					<th>Quantity</th>
-				</tr>
-				<tr th:each="ingredient : ${ingredients}">
-					<td th:text="${ingredient.type}">Type</td>
-					<td th:text="${ingredient.name}">Name</td>
-					<td th:text="${ingredient.quantity}">Quantity</td>
-					<td><a th:href="${'/ingredient/edit/' + ingredient.id}">Edit</a></td>
-					<td><form th:action="@{/ingredient/delete/{id}(id=${ingredient.id})}"
-							th:method="delete">
-							<input type="submit" value="Delete" />
-						</form></td>
-				</tr>
-			</table>
+				</div>
+			</nav>
 
 		</div>
+	</div>
+	<div th:if="${not #lists.isEmpty(ingredients)}">
+		<h2>Ingredients List</h2>
+		<table class="table table-striped">
+			<tr>
+				<th>Type</th>
+				<th>Ingredient Name</th>
+				<th>Quantity</th>
+			</tr>
+			<tr th:each="ingredient : ${ingredients}">
+				<td th:text="${ingredient.type}">Type</td>
+				<td th:text="${ingredient.name}">Name</td>
+				<td th:text="${ingredient.quantity}">Quantity</td>
+				<td><a th:href="${'/ingredient/edit/' + ingredient.id}">Edit</a></td>
+				<td><form
+						th:action="@{/ingredient/delete/{id}(id=${ingredient.id})}"
+						th:method="delete">
+						<input type="submit" value="Delete" />
+					</form></td>
+			</tr>
+		</table>
+
 	</div>
 
 </body>
