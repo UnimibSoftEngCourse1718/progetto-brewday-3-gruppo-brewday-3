@@ -1,9 +1,12 @@
 package group3.brewday.models;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Ingredient {
@@ -17,6 +20,10 @@ public class Ingredient {
 	private String name;
 	private Double quantity;
 	private String emailUser;
+	
+	@ManyToOne(fetch=FetchType.LAZY)
+	  @JoinColumn(name="RECIPE_ID")
+	  private Recipe recipe;
 	
 	public Type getType() {
 		return type;

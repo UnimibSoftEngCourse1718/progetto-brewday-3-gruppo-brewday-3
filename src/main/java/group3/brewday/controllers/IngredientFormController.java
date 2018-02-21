@@ -28,7 +28,7 @@ public class IngredientFormController {
         return "ingredientform";
     }
 	
-	@PostMapping(value = "ingredient")
+	@PostMapping("/ingredient")
     public String saveIngredient(Ingredient ingredient, Authentication auth){
 		ingredient.setEmailUser(auth.getName());
         ingredientService.saveIngredient(ingredient);

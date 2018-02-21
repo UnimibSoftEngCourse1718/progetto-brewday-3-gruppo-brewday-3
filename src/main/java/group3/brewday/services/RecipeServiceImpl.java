@@ -1,10 +1,12 @@
 package group3.brewday.services;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import group3.brewday.models.Ingredient;
 import group3.brewday.models.Recipe;
 import group3.brewday.repositories.RecipeRepository;
 
@@ -39,6 +41,21 @@ public class RecipeServiceImpl implements RecipeService {
          recipeRepository.delete(id);
          return;
     }
-
     
+    @Override
+    public void addRecipeIngredient(Long id, Ingredient ingredient) {
+    	Recipe recipe = recipeRepository.findOne(id);
+    	List<Ingredient> ingredients = recipe.getIngredients();
+    	ingredients.add(ingredient);
+    	recipe.setIngredients(ingredients);
+    	recipeRepository.save(recipe);
+    }
+
+    @Override
+    public void deleteRecipeIngredient(Long id, Long ingredientId) {
+    	Recipe recipe = recipeRepository.findOne(id);
+    	List<Ingredient> ingredients = recipe.getIngredients().stream().filter(ingredient -> !ingredientId.equals(ingredient.getId())).collect(Collectors.toList());
+    	recipe.setIngredients(ingredients);
+    	recipeRepository.save(recipe);
+    }
 }

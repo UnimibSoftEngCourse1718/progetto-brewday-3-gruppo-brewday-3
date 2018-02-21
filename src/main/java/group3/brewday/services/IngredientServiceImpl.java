@@ -28,7 +28,7 @@ public class IngredientServiceImpl implements IngredientService {
     public Ingredient getIngredientById(Long id) {
         return ingredientRepository.findOne(id);
     }
-
+    
     @Override
     public Ingredient saveIngredient(Ingredient ingredient) {
         return ingredientRepository.save(ingredient);
