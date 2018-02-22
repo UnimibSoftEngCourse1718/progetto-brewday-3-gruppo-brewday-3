@@ -13,13 +13,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import group3.brewday.models.Tool;
-import group3.brewday.services.ToolService;
+import group3.brewday.repositories.ToolRepository;
 
 @Controller
 public class ToolFormController {
    
 	@Autowired
-	ToolService toolService;
+	ToolRepository toolRepository;
 	
     @GetMapping("/toolform")
     public String newTool(Model model, Authentication auth){
@@ -32,27 +32,27 @@ public class ToolFormController {
     public String saveProduct(Tool tool, Authentication auth){
 
 		tool.setEmailUser(auth.getName());
-        toolService.saveTool(tool);
+		toolRepository.save(tool);
 
         return "redirect:/tools";
     }
 	
     @GetMapping(value = "/tools")
     public String list(Model model, Authentication auth){
-    	List<Tool> allTools = toolService.listAllTools();
+    	List<Tool> allTools = toolRepository.findAll();
         model.addAttribute("tools", allTools.stream().filter(tool -> auth.getName().equals(tool.getEmailUser())).collect(Collectors.toList()));
         return "tools";
     }	
 	
     @GetMapping("tool/edit/{id}")
     public String edit(@PathVariable Long id, Model model){
-        model.addAttribute("tool", toolService.getToolById(id));
+        model.addAttribute("tool", toolRepository.findOne(id));
         return "toolform";
     }
     
     @DeleteMapping("tool/delete/{id}")
     public String deleteTool(@PathVariable Long id){
-            toolService.deleteTool(id);
+    		toolRepository.delete(id);
             return "redirect:/tools";
     }
     

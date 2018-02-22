@@ -1,15 +1,35 @@
 package group3.brewday.models;
 
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 @Entity
-public class Ingredient {
+@Table(name = "ingredient", uniqueConstraints = @UniqueConstraint(columnNames = {"name", "type"}))
+public class Ingredient implements Serializable {
+	
+	private static final long serialVersionUID = 3086561547558706906L;
+
+	public Ingredient(Long id, Type type, String name) {
+		super();
+		this.id = id;
+		this.type = type;
+		this.name = name;
+	}
+
+	public Ingredient() {
+		super();
+	}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -18,12 +38,12 @@ public class Ingredient {
 	public static enum Type {malt, hop, yeast, sugar, additive};
 	private Type type;
 	private String name;
-	private Double quantity;
-	private String emailUser;
+
+	@ElementCollection
+    private Set<IngredientUser> ingredientUser;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
-	  @JoinColumn(name="RECIPE_ID")
-	  private Recipe recipe;
+//	@ElementCollection
+//    private Set<IngredientRecipe> ingredientRecipe;
 	
 	public Type getType() {
 		return type;
@@ -49,34 +69,22 @@ public class Ingredient {
 		this.name = name;
 	}
 	
-	public Double getQuantity() {
-		return quantity;
-	}
-	
-	public void setQuantity(Double quantity) {
-		this.quantity = quantity;
-	}
-	
-	public String getEmailUser() {
-		return emailUser;
-	}
-	
-	public void setEmailUser(String emailUser) {
-		this.emailUser = emailUser;
+	@OneToMany(mappedBy = "ingredient", cascade=CascadeType.ALL)
+	public Set<IngredientUser> getIngredientUser() {
+		return ingredientUser == null ? new HashSet<IngredientUser>() : ingredientUser;
 	}
 
-	public Ingredient(Long id, Type type, String name, Double quantity, String emailUser) {
-		super();
-		this.id = id;
-		this.type = type;
-		this.name = name;
-		this.quantity = quantity;
-		this.emailUser = emailUser;
+	public void setIngredientUser(Set<IngredientUser> ingredientUser) {
+		this.ingredientUser = ingredientUser;
 	}
 
-	public Ingredient() {
-		super();
-	}
-	
+//	@OneToMany(mappedBy = "ingredient", cascade = CascadeType.ALL)	
+//	public Set<IngredientRecipe> getIngredientRecipe() {
+//		return ingredientRecipe == null ? new HashSet<IngredientRecipe>() : ingredientRecipe;
+//	}
+//
+//	public void setIngredientRecipe(Set<IngredientRecipe> ingredientRecipe) {
+//		this.ingredientRecipe = ingredientRecipe;
+//	}
 	
 }	
