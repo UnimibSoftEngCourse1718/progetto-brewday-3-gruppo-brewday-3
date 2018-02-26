@@ -1,11 +1,10 @@
-<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head lang="en">
-
-<title>Ingredients List</title>
-
-<!--/*/ <th:block th:include="fragments/headerinc :: head"></th:block> /*/-->
+	<title>Ingredients List</title>
+	<!--/*/ <th:block th:include="fragments/headerinc :: head"></th:block> /*/-->
 </head>
+
 <body>
 	<div class="container">
 		<!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
@@ -18,16 +17,14 @@
 					<div class="container-fluid">
 						<div class="navbar-header">
 							<ul class="nav navbar-nav">
-								<li><a href="#" th:href="@{/ingredientform}">Create
-										Ingredient</a></li>
+								<li><a href="#" th:href="@{/ingredientform}">Create	Ingredient</a></li>
 							</ul>
 						</div>
 					</div>
 				</nav>
-
 			</div>
 		</div>
-		<div th:if="${not #lists.isEmpty(ingredients)}">
+		<div th:if="${not #lists.isEmpty(ingredientUsers)}">
 			<h2>Ingredients List</h2>
 			<table class="table table-striped">
 				<tr>
@@ -37,16 +34,12 @@
 					<th></th>
 					<th></th>
 				</tr>
-				<tr th:each="ingredient : ${ingredients}">
-					<td th:text="${ingredient.type}">Type</td>
-					<td th:text="${ingredient.name}">Name</td>
-					<td th:text="${ingredient.quantity}">Quantity</td>
-					<td><a th:href="${'/ingredient/edit/' + ingredient.id}">Edit</a></td>
-					<td><form
-							th:action="@{/ingredient/delete/{id}(id=${ingredient.id})}"
-							th:method="delete">
-							<input type="submit" value="Delete" />
-						</form></td>
+				<tr th:each="ingredientUser : ${ingredientUsers}">
+					<td th:text="${ingredientUser.ingredientUserPk.ingredient.type}">Type</td>
+					<td th:text="${ingredientUser.ingredientUserPk.ingredient.name}">Name</td>
+					<td th:text="${ingredientUser.quantity}">Quantity</td>
+					<td><a th:href="@{/ingredientuserupdate/{userid}/{ingredientid}(userid=${ingredientUser.ingredientUserPk.user.id},ingredientid=${ingredientUser.ingredientUserPk.ingredient.id})}">Edit</a></td>
+					<td><a th:href="@{/ingredientuserdelete/{userid}/{ingredientid}(userid=${ingredientUser.ingredientUserPk.user.id},ingredientid=${ingredientUser.ingredientUserPk.ingredient.id})}">Delete</a></td>
 				</tr>
 			</table>
 

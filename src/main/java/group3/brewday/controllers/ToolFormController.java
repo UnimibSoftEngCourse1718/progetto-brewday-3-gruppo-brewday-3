@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 
 import group3.brewday.models.Tool;
 import group3.brewday.repositories.ToolRepository;
@@ -28,7 +29,7 @@ public class ToolFormController {
         return "toolform";
     }
 	
-	@PostMapping(value = "tool")
+	@PostMapping("/tool")
     public String saveProduct(Tool tool, Authentication auth){
 
 		tool.setEmailUser(auth.getName());
@@ -37,23 +38,30 @@ public class ToolFormController {
         return "redirect:/tools";
     }
 	
-    @GetMapping(value = "/tools")
+    @GetMapping("/tools")
     public String list(Model model, Authentication auth){
     	List<Tool> allTools = toolRepository.findAll();
         model.addAttribute("tools", allTools.stream().filter(tool -> auth.getName().equals(tool.getEmailUser())).collect(Collectors.toList()));
         return "tools";
     }	
 	
-    @GetMapping("tool/edit/{id}")
+    @GetMapping("/edittool/{id}")
     public String edit(@PathVariable Long id, Model model){
         model.addAttribute("tool", toolRepository.findOne(id));
-        return "toolform";
+        return "edittool";
     }
     
-    @DeleteMapping("tool/delete/{id}")
-    public String deleteTool(@PathVariable Long id){
-    		toolRepository.delete(id);
-            return "redirect:/tools";
+	@PutMapping("/edittool")
+	public String ingredientUpdate(Tool tool) {
+		toolRepository.save(tool);		
+		return "redirect:/tools";
+	}
+
+    
+    @DeleteMapping("/tool/delete/{id}")
+    public String deleteTool(@PathVariable Long id) {
+		toolRepository.delete(id);
+        return "redirect:/tools";
     }
     
 }

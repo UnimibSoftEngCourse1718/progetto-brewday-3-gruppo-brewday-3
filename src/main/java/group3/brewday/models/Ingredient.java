@@ -40,10 +40,10 @@ public class Ingredient implements Serializable {
 	private String name;
 
 	@ElementCollection
-    private Set<IngredientUser> ingredientUser;
+    private Set<IngredientUser> ingredientUsers;
 	
-//	@ElementCollection
-//    private Set<IngredientRecipe> ingredientRecipe;
+	@ElementCollection
+    private Set<IngredientRecipe> ingredientRecipes;
 	
 	public Type getType() {
 		return type;
@@ -69,22 +69,22 @@ public class Ingredient implements Serializable {
 		this.name = name;
 	}
 	
-	@OneToMany(mappedBy = "ingredient", cascade=CascadeType.ALL)
-	public Set<IngredientUser> getIngredientUser() {
-		return ingredientUser == null ? new HashSet<IngredientUser>() : ingredientUser;
+	@OneToMany(mappedBy = "ingredient", cascade=CascadeType.ALL, orphanRemoval = true)
+	public Set<IngredientUser> getIngredientUsers() {
+		return ingredientUsers == null ? new HashSet<IngredientUser>() : ingredientUsers;
 	}
 
-	public void setIngredientUser(Set<IngredientUser> ingredientUser) {
-		this.ingredientUser = ingredientUser;
+	public void setIngredientUsers(Set<IngredientUser> ingredientUsers) {
+		this.ingredientUsers = ingredientUsers;
 	}
 
-//	@OneToMany(mappedBy = "ingredient", cascade = CascadeType.ALL)	
-//	public Set<IngredientRecipe> getIngredientRecipe() {
-//		return ingredientRecipe == null ? new HashSet<IngredientRecipe>() : ingredientRecipe;
-//	}
-//
-//	public void setIngredientRecipe(Set<IngredientRecipe> ingredientRecipe) {
-//		this.ingredientRecipe = ingredientRecipe;
-//	}
+	@OneToMany(mappedBy = "ingredient", cascade = CascadeType.ALL, orphanRemoval = true)	
+	public Set<IngredientRecipe> getIngredientRecipes() {
+		return ingredientRecipes == null ? new HashSet<IngredientRecipe>() : ingredientRecipes;
+	}
+
+	public void setIngredientRecipes(Set<IngredientRecipe> ingredientRecipes) {
+		this.ingredientRecipes = ingredientRecipes;
+	}
 	
 }	

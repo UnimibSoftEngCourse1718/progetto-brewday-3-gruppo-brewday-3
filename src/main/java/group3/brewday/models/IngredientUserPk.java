@@ -14,7 +14,7 @@ public class IngredientUserPk implements Serializable {
 	private Ingredient ingredient;
 	private User user;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	public Ingredient getIngredient() {
 		return ingredient;
 	}
@@ -23,12 +23,23 @@ public class IngredientUserPk implements Serializable {
 		this.ingredient = ingredient;
 	}
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	public User getUser() {
 		return user;
 	}
 
 	public void setUser(User user) {
+		this.user = user;
+	}
+	
+	
+	public IngredientUserPk() {
+		super();
+	}
+	
+	public IngredientUserPk(Ingredient ingredient, User user) {
+		super();
+		this.ingredient = ingredient;
 		this.user = user;
 	}
 

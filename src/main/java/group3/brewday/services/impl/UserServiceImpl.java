@@ -1,8 +1,9 @@
-package group3.brewday.services;
+package group3.brewday.services.impl;
 
 import group3.brewday.models.User;
 import group3.brewday.models.Role;
 import group3.brewday.repositories.UserRepository;
+import group3.brewday.services.UserService;
 import group3.brewday.dto.UserRegistrationDto;
 
 import java.util.Arrays;
@@ -54,6 +55,11 @@ public class UserServiceImpl implements UserService {
                 .map(role -> new SimpleGrantedAuthority(role.getName()))
                 .collect(Collectors.toList());
     }
+
+	@Override
+	public User findOne(Long id) {
+		return userRepository.findOne(id);
+	}
   
 
 }

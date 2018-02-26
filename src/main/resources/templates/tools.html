@@ -1,14 +1,13 @@
-<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head lang="en">
-
-<title>Tools List</title>
-
-<!--/*/ <th:block th:include="fragments/headerinc :: head"></th:block> /*/-->
+	<title>Tools List</title>
+	<th:block th:include="fragments/headerinc :: head"></th:block>
 </head>
+
 <body>
+	<th:block th:include="fragments/header :: header"></th:block>
 	<div class="container">
-		<!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
 		<div class="container">
 			<div th:fragment="header"></div>
 		</div>
@@ -36,9 +35,8 @@
 				<tr th:each="tool : ${tools}">
 					<td th:text="${tool.name}">Id</td>
 					<td th:text="${tool.capacity}">Capacity</td>
-					<td><a th:href="${'/tool/edit/' + tool.id}">Edit</a></td>
-					<td><form th:action="@{/tool/delete/{id}(id=${tool.id})}"
-							th:method="delete">
+					<td><a th:href="@{/edittool/{id}(id=${tool.id})}">Edit</a></td>
+					<td><form th:action="@{/tool/delete/{id}(id=${tool.id})}" th:method="delete">
 							<input type="submit" value="Delete" />
 						</form></td>
 				</tr>
@@ -46,6 +44,6 @@
 
 		</div>
 	</div>
-
 </body>
+
 </html>

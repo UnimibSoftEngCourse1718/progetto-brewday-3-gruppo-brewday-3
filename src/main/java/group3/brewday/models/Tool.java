@@ -8,6 +8,19 @@ import javax.persistence.Id;
 @Entity
 public class Tool {
 	
+
+	public Tool(Long id, String name, Double capacity, String emailUser) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.capacity = capacity;
+		this.emailUser = emailUser;
+	}
+	
+	public Tool(){
+		super();
+	}
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
@@ -46,17 +59,5 @@ public class Tool {
 	
 	public void setEmailUser(String emailUser) {
 		this.emailUser = emailUser;
-	}
-
-	public Tool(Long id, String name, Double capacity, String emailUser) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.capacity = capacity;
-		this.emailUser = emailUser;
-	}
-	
-	public Tool(){
-		
 	}
 }

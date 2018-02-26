@@ -19,7 +19,7 @@ public class User implements Serializable {
 	private String email;
 	private String password;
 	@ElementCollection
-    private Set<IngredientUser> ingredientUser;
+    private Set<IngredientUser> ingredientUsers;
 
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinTable(
@@ -70,12 +70,12 @@ public class User implements Serializable {
 	
 	
 	@OneToMany(mappedBy = "user")
-	public Set<IngredientUser> getIngredientUser() {
-		return ingredientUser;
+	public Set<IngredientUser> getIngredientUsers() {
+		return ingredientUsers;
 	}
 
-	public void setIngredientUser(Set<IngredientUser> ingredientUser) {
-		this.ingredientUser = ingredientUser;
+	public void setIngredientUsers(Set<IngredientUser> ingredientUsers) {
+		this.ingredientUsers = ingredientUsers;
 	}
 
 	public Collection<Role> getRoles() {
